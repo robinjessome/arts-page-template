@@ -38,14 +38,14 @@ export default defineType({
       group: 'seo',
     }),
     // IMAGE
-    defineField({
-      name: 'favicon',
-      title: 'Favicon',
-      description: '(Optional) Displays in the browser tab',
-      type: 'image',
-      // options: {
-      //   hotspot: true,
-      // },
-    }),
+    // defineField({
+    //   name: 'favicon',
+    //   title: 'Favicon',
+    //   description: '(Optional) Displays in the browser tab',
+    //   type: 'image',
+    //   // options: {
+    //   //   hotspot: true,
+    //   // },
+    // }),
   ],
 })

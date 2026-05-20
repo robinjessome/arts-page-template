@@ -6,7 +6,6 @@ import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries'
 
-// 1. Move configuration options to the top level
 const FETCH_OPTIONS = { next: { revalidate: 30 } }
 
 const geistSans = Geist({
@@ -19,18 +18,14 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-// 2. Use generateMetadata to handle the fetch safely and dynamically
 export async function generateMetadata(): Promise<Metadata> {
-  // Notice we removed the brackets [] because the query returns a single object
   const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
   const faviconUrl = siteSettings?.favicon ? urlFor(siteSettings.favicon).url() : undefined
 
   return {
     title: `${siteSettings?.title ?? 'Default'} | ${siteSettings?.shortDescription ?? ''}`,
     description: siteSettings?.longDescription,
-    icons: {
-      icon: faviconUrl,
-    },
+    ...(faviconUrl && { icons: { icon: faviconUrl } }),
   }
 }
 
