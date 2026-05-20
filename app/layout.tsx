@@ -3,11 +3,11 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
 import { urlFor } from '@/sanity/lib/image'
-
 import { client } from '@/sanity/lib/client'
-import { SiteSettings } from '@/sanity.types'
-
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries'
+
+// 1. Move configuration options to the top level
+const FETCH_OPTIONS = { next: { revalidate: 30 } }
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,23 +19,31 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const options = { next: { revalidate: 30 } } // 3600
-const [siteSettings] = await client.fetch<SiteSettings[]>(SITE_SETTINGS_QUERY, {}, options)
-const faviconUrl = siteSettings.favicon && urlFor(siteSettings.favicon).url()
+// 2. Use generateMetadata to handle the fetch safely and dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  // Notice we removed the brackets [] because the query returns a single object
+  const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
+  const faviconUrl = siteSettings?.favicon ? urlFor(siteSettings.favicon).url() : undefined
 
-export const metadata: Metadata = {
-  title: `${siteSettings.title} | ${siteSettings.shortDescription}`,
-  description: siteSettings.longDescription,
-  icons: {
-    icon: faviconUrl, // Standard favicon
-  },
+  return {
+    title: `${siteSettings?.title ?? 'Default'} | ${siteSettings?.shortDescription ?? ''}`,
+    description: siteSettings?.longDescription,
+    icons: {
+      icon: faviconUrl,
+    },
+  }
 }
 
-export default function RootLayout({
+// 3. Keep your Layout Component clean
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Fetching the data again here is completely fine; Next.js automatically dedupes
+  // duplicate fetch calls so it won't hit Sanity twice.
+  const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
