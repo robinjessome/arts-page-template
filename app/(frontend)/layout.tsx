@@ -67,14 +67,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
   const primaryColor = siteSettings?.primaryColor || DEFAULT_COLORS.primary
 
-  console.log('primaryColor', primaryColor.hex)
-
   let faviconUrl = siteSettings?.favicon ? urlFor(siteSettings.favicon).url() : undefined
+
+  console.log('primaryColor', primaryColor)
+
+  const colorHex = (primaryColor as { hex: string }).hex
 
   if (!faviconUrl) {
     const siteTitle = siteSettings?.title ?? 'Default'
     // This creates /api/fallback-favicon?text=Default
-    faviconUrl = `/api/fallback-favicon?text=${encodeURIComponent(siteTitle)}&color=${encodeURIComponent(primaryColor.hex)}`
+    faviconUrl = `/api/fallback-favicon?text=${encodeURIComponent(siteTitle)}&color=${encodeURIComponent(colorHex)}`
   }
 
   return {
