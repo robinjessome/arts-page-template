@@ -89,6 +89,7 @@ export type SiteSettings = {
   title?: string
   shortDescription?: string
   longDescription?: string
+  siteFont?: string
   favicon?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -96,6 +97,42 @@ export type SiteSettings = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  primaryColor?: Color
+  secondaryColor?: Color
+  accentColor?: Color
+}
+
+export type Color = {
+  _type: 'color'
+  hex?: string
+  alpha?: number
+  hsl?: HslaColor
+  hsv?: HsvaColor
+  rgb?: RgbaColor
+}
+
+export type RgbaColor = {
+  _type: 'rgbaColor'
+  r?: number
+  g?: number
+  b?: number
+  a?: number
+}
+
+export type HsvaColor = {
+  _type: 'hsvaColor'
+  h?: number
+  s?: number
+  v?: number
+  a?: number
+}
+
+export type HslaColor = {
+  _type: 'hslaColor'
+  h?: number
+  s?: number
+  l?: number
+  a?: number
 }
 
 export type SanityImagePaletteSwatch = {
@@ -202,6 +239,10 @@ export type AllSanitySchemaTypes =
   | SanityImageHotspot
   | Slug
   | SiteSettings
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -223,6 +264,7 @@ export type SITE_SETTINGS_QUERY_RESULT = Array<{
   title?: string
   shortDescription?: string
   longDescription?: string
+  siteFont?: string
   favicon?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -230,6 +272,9 @@ export type SITE_SETTINGS_QUERY_RESULT = Array<{
     crop?: SanityImageCrop
     _type: 'image'
   }
+  primaryColor?: Color
+  secondaryColor?: Color
+  accentColor?: Color
 }>
 
 // Source: sanity/lib/queries.ts
