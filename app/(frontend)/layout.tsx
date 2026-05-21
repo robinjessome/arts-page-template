@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import { cn } from '@/lib/helpers'
 import { Header, Footer } from '@/components'
-import { generateHsl } from '@/sanity/lib/helpers'
+import { generateHsl } from '@/lib/helpers'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import {
   Inconsolata,
@@ -84,8 +85,9 @@ export async function generateMetadata(): Promise<Metadata> {
     faviconUrl = `/api/fallback-favicon?text=${encodeURIComponent(siteTitle)}&color=${encodeURIComponent(colorHex)}`
   }
 
+  const hasTagline = siteSettings?.tagline && ` | ${siteSettings.tagline}`
   return {
-    title: `${siteSettings?.title ?? 'Default'} | ${siteSettings?.shortDescription ?? ''}`,
+    title: `${siteSettings?.title ?? 'Default'}${hasTagline}`,
     description: siteSettings?.longDescription,
     ...(faviconUrl && { icons: { icon: faviconUrl } }),
   }
@@ -97,6 +99,8 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
+
+  const { colorScheme } = siteSettings || {}
 
   const chosenFontKey = siteSettings?.siteFont as keyof typeof FONTS_MAP
   const chosenHeadlineFontKey = siteSettings?.headlineFont as keyof typeof FONTS_MAP
@@ -118,19 +122,58 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${siteFont.className} ${headlineFont.variable} h-full antialiased`}
+      className={cn(
+        `${siteFont.className} ${headlineFont.variable} dark h-full antialiased`,
+        colorScheme === 'dark' && 'dark',
+        'dark:bg-primary-dark bg-primary-light border'
+
+        //   ? 'text-primary-light bg-primary-dark'
+        //   : 'text-primary-dark bg-primary-light'
+      )}
       style={cssVars as React.CSSProperties}
     >
-      <body className="flex min-h-full flex-col">
-        <div className="p-4">
+      <body className={cn('min-h-screen w-full', 'text-primary-dark dark:text-primary-light')}>
+        <div
+          className={cn(
+            'p-8',
+            'bg-primary-light dark:from-primary-dark dark:to-primary dark:bg-linear-to-b'
+          )}
+        >
           <Header siteSettings={siteSettings} />
           <main className="">{children}</main>
-          <pre className="my-6 bg-slate-100 p-6 text-xs wrap-anywhere">
+          <pre className="bg-slate-100 p-6 text-xs wrap-anywhere text-slate-900">
             {JSON.stringify(siteSettings, null, 2)}
           </pre>
           <Footer siteSettings={siteSettings} />
         </div>
       </body>
     </html>
+
+    // <html
+    //   lang="en"
+    //   className={cn(`${siteFont.className} ${headlineFont.variable} dark h-full antialiased`)}
+    //   style={cssVars as React.CSSProperties}
+    // >
+    //   <body
+    //     className={cn(
+    //       'flex min-h-screen flex-col bg-fixed antialiased p-8',
+    //       'bg-primary-light dark:from-primary-dark dark:to-primary dark:bg-linear-to-b'
+    //     )}
+    //   >
+    //     <header className="border-b border-white/10 p-6">
+    //       <div className="mx-auto max-w-7xl">
+    //         <h1 className="text-xl font-bold tracking-tight">MyApp</h1>
+    //       </div>
+    //     </header>
+
+    //     <main className="mx-auto w-full max-w-7xl flex-1 bg-slate-200 p-6">
+    //       <div className="h-[2000px] bg-red-200 text-slate-900">MAIN!</div>
+    //     </main>
+
+    //     <footer className="border-t border-white/10 p-6 text-center text-sm text-slate-500">
+    //       © {new Date().getFullYear()} MyApp. All rights reserved.
+    //     </footer>
+    //   </body>
+    // </html>
   )
 }

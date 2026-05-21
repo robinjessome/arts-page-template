@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { SITE_SETTINGS_QUERY_RESULT } from '@/sanity.types'
+
+import { SocialLinks } from '@/components'
 export default async function Footer({
   siteSettings,
 }: {
@@ -7,19 +9,23 @@ export default async function Footer({
 }) {
   if (!siteSettings) return null
 
-  const { copyrightText } = siteSettings
+  const { copyrightText, socialLinksLabel, socialLinks = [] } = siteSettings
 
   return (
-    <footer>
-      <hr className="my-8" />
-      <audio controls>
-        <source src="http://www.sousound.com/music/healing/healing_01.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-      <Link href="/kitchen-sink">Kitchen Sink...</Link>
-      <p>
-        &copy; {new Date().getFullYear()} {copyrightText}
-      </p>
+    <footer className="border-primary/15 border-t py-4">
+      <div className="flex justify-between text-sm">
+        <div>
+          <p>
+            &copy; {new Date().getFullYear()} {copyrightText}{' '}
+            <Link href="/kitchen-sink">Kitchen Sink...</Link>
+          </p>
+          {/* <audio controls>
+            <source src="http://www.sousound.com/music/healing/healing_01.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio> */}
+        </div>
+        <SocialLinks label={socialLinksLabel} links={socialLinks} />
+      </div>
     </footer>
   )
 }

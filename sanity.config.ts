@@ -7,14 +7,13 @@
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
-import { customColorPicker } from 'sanity-plugin-color-input'
 import { colorInput } from '@sanity/color-input'
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './sanity/env'
 import { schema } from './sanity/schemaTypes'
-// import { structure } from './sanity/structure'
-import { myStructure } from './structure'
+import { structure } from './sanity/structure'
 
 export default defineConfig({
   basePath: '/admin',
@@ -25,20 +24,9 @@ export default defineConfig({
   schema,
   plugins: [
     colorInput(),
-    // customColorPicker({
-    //   colors: [
-    //     // Solid colors
-    //     '#6bd7ec',
-    //     '#fd3663',
-    //     '#ffe300',
-    //     '#96f184',
-    //     // // Gradient colors
-    //     { hex: '#FF007F', hex2: '#7F00FF', angle: 45 },
-    //     { hex: '#00F2FE', hex2: '#4FACFE', angle: 180 },
-    //   ],
-    // }),
+    unsplashImageAsset(),
     structureTool({
-      structure: myStructure,
+      structure: structure,
     }),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin

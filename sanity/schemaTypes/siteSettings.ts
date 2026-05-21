@@ -1,19 +1,19 @@
 import { ALL_FIELDS_GROUP, defineField, defineType } from 'sanity'
 import { CharacterCount } from '@/sanity/components/charcterCount'
 import { FontSelectPreview } from '@/sanity/components/fontSelect'
+import { socialLinksSchema } from '@/sanity/schemaTypes/fields/socialLinks'
 
 export default defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
   groups: [
-    { name: 'seo', title: 'SEO' },
-    { name: 'social', title: 'Social Media' },
-    { name: 'streaming', title: 'Streaming Platforms' },
+    { name: 'general', title: 'General' },
+    { name: 'headerFooter', title: 'Header & Footer' },
+    { name: 'socialLinks', title: 'Social Links' },
     { name: 'fonts', title: 'Fonts' },
     { name: 'colors', title: 'Colours' },
     { name: 'images', title: 'Images' },
-    { name: 'headerFooter', title: 'Header & Footer' },
     { ...ALL_FIELDS_GROUP, hidden: true },
   ],
   fields: [
@@ -22,14 +22,14 @@ export default defineType({
       name: 'title',
       title: 'Site Title',
       type: 'string',
-      group: 'seo',
+      group: 'general',
     }),
     defineField({
-      name: 'shortDescription',
-      title: 'Short Description',
-      description: 'Used for the browser title, and other SEO things',
+      name: 'tagline',
+      title: 'Tagline',
+      description: 'Used for the browser title, site header.',
       type: 'string',
-      group: 'seo',
+      group: 'general',
     }),
     defineField({
       name: 'longDescription',
@@ -37,122 +37,44 @@ export default defineType({
       description: 'Used for the browser meta-description, previews, and SEO things.',
       type: 'text',
       validation: (rule) => rule.max(160).error('Max 160 characters is required'),
-      group: 'seo',
+      group: 'general',
       components: {
         input: CharacterCount,
+      },
+    }),
+    defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      description: '(Optional) Displays in the browser tab',
+      type: 'image',
+      group: 'general',
+    }),
+    defineField({
+      title: 'Colour scheme: Light or Dark? ',
+      name: 'colorScheme',
+      // description: '',
+      type: 'string',
+      group: 'general',
+      initialValue: 'light',
+      options: {
+        list: [
+          { title: 'Light', value: 'light' },
+          { title: 'Dark', value: 'dark' },
+        ],
+        layout: 'radio',
       },
     }),
 
     // SOCIAL
 
     defineField({
-      name: 'socialMedia',
-      title: 'Social Media',
-      type: 'object',
-      group: 'social',
-      // fieldsets: [
-      //   { name: 'social', title: 'Social media' },
-      //   { name: 'streaming', title: 'Streaming platforms' },
-      // ],
-      fields: [
-        {
-          title: 'YouTube',
-          name: 'youtube',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-        {
-          title: 'Twitter',
-          name: 'twitter',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-        {
-          title: 'Instagram',
-          name: 'instagram',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-        {
-          title: 'Facebook',
-          name: 'facebook',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-      ],
+      name: 'socialLinksLabel',
+      title: 'Social Links: Label',
+      type: 'string',
+      group: 'socialLinks',
     }),
+    socialLinksSchema,
 
-    // STREAMING
-    defineField({
-      name: 'streaming',
-      title: 'Streaming Platforms',
-      type: 'object',
-      group: 'streaming',
-      fields: [
-        {
-          title: 'Bandcamp',
-          name: 'bandcamp',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-        {
-          title: 'Spotify',
-          name: 'spotify',
-          type: 'object',
-          options: { columns: 2 },
-          fields: [
-            { name: 'handle', type: 'string' },
-            { name: 'url', type: 'url' },
-          ],
-        },
-      ],
-    }),
-
-    // defineField({
-    //   title: 'Example object list',
-    //   type: 'array',
-    //   name: 'example',
-    //   group: 'social',
-    //   of: [
-    //     defineArrayMember({
-    //       type: 'object',
-    //       name: 'linkItem',
-    //       title: 'Link Item',
-    //       fields: [
-    //         { name: 'name', type: 'string', title: 'Name' },
-    //         {
-    //           name: 'url',
-    //           type: 'string',
-    //           title: 'URL',
-    //           validation: (Rule) =>
-    //             Rule.uri({
-    //               scheme: ['http', 'https'], // Enforces a valid web URL format
-    //             }),
-    //         },
-    //       ],
-    //     }),
-    //   ],
-    // }),
     // FONTS & COLOURS
     defineField({
       name: 'siteFont',
@@ -214,17 +136,41 @@ export default defineType({
       },
       group: 'colors',
     }),
-    // IMAGE
+
+    // HEADER
     defineField({
-      name: 'favicon',
-      title: 'Favicon',
-      description: '(Optional) Displays in the browser tab',
+      name: 'showTagline',
+      title: 'Show logo tagline?',
+      description: 'Show or hide the tagline beside the title/logo.',
+      type: 'boolean',
+      group: 'headerFooter',
+    }),
+    defineField({
+      name: 'headerVerticalAlignment',
+      title: 'Header Vertical Alignment',
+      description: 'Use this to adjust the vertical alignement of the header logo / menu',
+      type: 'string',
+      group: 'headerFooter',
+      initialValue: 'bottom',
+      options: {
+        list: [
+          { title: 'Top', value: 'top' },
+          { title: 'Middle', value: 'middle' },
+          { title: 'Bottom', value: 'bottom' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
+      name: 'logo',
       type: 'image',
-      group: 'images',
+      group: 'headerFooter',
       // options: {
-      //   hotspot: true,
+      //   hotspot: false
       // },
     }),
+
+    // FOOTER
     defineField({
       name: 'copyrightText',
       title: 'Copyright Text',

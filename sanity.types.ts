@@ -80,6 +80,15 @@ export type Slug = {
   source?: string
 }
 
+export type HomePage = {
+  _id: string
+  _type: 'homePage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+}
+
 export type SiteSettings = {
   _id: string
   _type: 'siteSettings'
@@ -87,43 +96,45 @@ export type SiteSettings = {
   _updatedAt: string
   _rev: string
   title?: string
-  shortDescription?: string
+  tagline?: string
   longDescription?: string
-  socialMedia?: {
-    youtube?: {
-      handle?: string
-      url?: string
-    }
-    twitter?: {
-      handle?: string
-      url?: string
-    }
-    instagram?: {
-      handle?: string
-      url?: string
-    }
-    facebook?: {
-      handle?: string
-      url?: string
-    }
+  favicon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
   }
-  streaming?: {
-    bandcamp?: {
-      handle?: string
-      url?: string
-    }
-    spotify?: {
-      handle?: string
-      url?: string
-    }
-  }
+  colorScheme?: 'light' | 'dark'
+  socialLinksLabel?: string
+  socialLinks?: Array<{
+    platform?:
+      | 'apple'
+      | 'bandcamp'
+      | 'facebook'
+      | 'instagram'
+      | 'linkedin'
+      | 'pinterest'
+      | 'soundcloud'
+      | 'spotify'
+      | 'tiktok'
+      | 'tidal'
+      | 'x'
+      | 'youtube'
+    handle?: string
+    url?: string
+    _type: 'socialLink'
+    _key: string
+  }>
   siteFont?: string
   headlineFont?: string
   headerFooterColour?: 'light' | 'dark'
   primaryColor?: Color
   secondaryColor?: Color
   accentColor?: Color
-  favicon?: {
+  showTagline?: boolean
+  headerVerticalAlignment?: 'top' | 'middle' | 'bottom'
+  logo?: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
@@ -269,6 +280,7 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | HomePage
   | SiteSettings
   | Color
   | RgbaColor
@@ -293,43 +305,45 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   _updatedAt: string
   _rev: string
   title?: string
-  shortDescription?: string
+  tagline?: string
   longDescription?: string
-  socialMedia?: {
-    youtube?: {
-      handle?: string
-      url?: string
-    }
-    twitter?: {
-      handle?: string
-      url?: string
-    }
-    instagram?: {
-      handle?: string
-      url?: string
-    }
-    facebook?: {
-      handle?: string
-      url?: string
-    }
+  favicon?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
   }
-  streaming?: {
-    bandcamp?: {
-      handle?: string
-      url?: string
-    }
-    spotify?: {
-      handle?: string
-      url?: string
-    }
-  }
+  colorScheme?: 'dark' | 'light'
+  socialLinksLabel?: string
+  socialLinks?: Array<{
+    platform?:
+      | 'apple'
+      | 'bandcamp'
+      | 'facebook'
+      | 'instagram'
+      | 'linkedin'
+      | 'pinterest'
+      | 'soundcloud'
+      | 'spotify'
+      | 'tidal'
+      | 'tiktok'
+      | 'x'
+      | 'youtube'
+    handle?: string
+    url?: string
+    _type: 'socialLink'
+    _key: string
+  }>
   siteFont?: string
   headlineFont?: string
   headerFooterColour?: 'dark' | 'light'
   primaryColor?: Color
   secondaryColor?: Color
   accentColor?: Color
-  favicon?: {
+  showTagline?: boolean
+  headerVerticalAlignment?: 'bottom' | 'middle' | 'top'
+  logo?: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot

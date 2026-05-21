@@ -1,4 +1,10 @@
 import { Color } from '@/sanity.types'
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
 export function generateHsl(
   color: Color,
@@ -19,9 +25,9 @@ export function generateHsl(
   let l = Math.round(color.hsl.l * 100)
 
   if (modify === 'lighten') {
-    l = Math.min(100, l + modifier) // Clamp to max 100%
+    l = Math.min(100, l + modifier) // max 100%
   } else if (modify === 'darken') {
-    l = Math.max(0, l - modifier) // Clamp to min 0%
+    l = Math.max(0, l - modifier) // min 0%
   } else if (modify === 'set') {
     l = modifier
   }

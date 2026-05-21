@@ -1,8 +1,18 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   a {
     @apply transition-all;
+  }
+
+  .prose a {
+    @apply text-primary;
+  }
+  .prose a:hover,
+  .prose a:focus {
+    @apply text-primary-dark dark:text-primary-light underline;
   }
   /* a:hover,
   a:focus {
