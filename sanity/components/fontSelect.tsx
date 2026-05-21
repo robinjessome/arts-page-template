@@ -5,12 +5,13 @@ import { Stack, Card, Text } from '@sanity/ui'
 
 const FONTS = [
   { value: 'inconsolata', label: 'Inconsolata (Monospace)', fallback: 'monospace' },
-  { value: 'josefinSans', label: 'Josefin Sans (Sans-serif)', fallback: 'sans-serif' },
+  // { value: 'josefinSans', label: 'Josefin Sans (Sans-serif)', fallback: 'sans-serif' },
   { value: 'merriweather', label: 'Merriweather (Serif)', fallback: 'serif' },
   { value: 'openSans', label: 'Open Sans (Sans-serif)', fallback: 'sans-serif' },
   { value: 'playfairDisplay', label: 'Playfair Display (Serif)', fallback: 'serif' },
   { value: 'quicksand', label: 'Quicksand (Sans-serif)', fallback: 'sans-serif' },
   { value: 'raleway', label: 'Raleway (Sans-serif)', fallback: 'sans-serif' },
+  { value: 'roboto', label: 'Roboto (Sans-serif)', fallback: 'sans-serif' },
   { value: 'saira', label: 'Saira (Sans-serif)', fallback: 'sans-serif' },
 ]
 
@@ -26,10 +27,11 @@ export function FontSelectPreview(props: StringInputProps) {
   }
 
   //&family=Roboto:wght@300;700
+  //&family=Josefin+Sans:wght@300;400;700
   return (
     <Stack>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Josefin+Sans:wght@300;400;700&family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;700&family=PlayfairDisplay:wght@400;700&family=Quicksand:wght@300;400;700&family=Raleway:wght@300;400;700&family=Saira:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;700&family=PlayfairDisplay:wght@400;700&family=Quicksand:wght@300;400;700&family=Raleway:wght@300;400;700&family=Roboto:wght@300;700&family=Saira:wght@300;400;700&display=swap');
       `}</style>
 
       {FONTS.map((font) => {

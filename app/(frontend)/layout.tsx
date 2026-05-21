@@ -4,12 +4,13 @@ import { generateHsl } from '@/sanity/lib/helpers'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import {
   Inconsolata,
-  Josefin_Sans,
+  // Josefin_Sans,
   Merriweather,
   Open_Sans,
   Playfair_Display,
   Quicksand,
   Raleway,
+  Roboto,
   Saira,
 } from 'next/font/google'
 
@@ -25,9 +26,9 @@ export const inconsolata = Inconsolata({
   subsets: ['latin'],
 })
 
-export const josefinSans = Josefin_Sans({
-  subsets: ['latin'],
-})
+// export const josefinSans = Josefin_Sans({
+//   subsets: ['latin'],
+// })
 
 export const merriweather = Merriweather({
   subsets: ['latin'],
@@ -49,18 +50,23 @@ export const raleway = Raleway({
   subsets: ['latin'],
 })
 
+export const roboto = Roboto({
+  subsets: ['latin'],
+})
+
 export const saira = Saira({
   subsets: ['latin'],
 })
 
 const FONTS_MAP = {
   inconsolata: inconsolata,
-  josefinSans: josefinSans,
+  // josefinSans: josefinSans,
   merriweather: merriweather,
   openSans: openSans,
   playfairDisplay: playfairDisplay,
   quicksand: quicksand,
   raleway: raleway,
+  roboto: roboto,
   saira: saira,
 } as const
 
@@ -99,9 +105,8 @@ export default async function RootLayout({
 
   const cssVars = {
     '--primary': `hsl(${generateHsl(primaryColor)})`,
-    '--primary-light': `hsl(${generateHsl(primaryColor, 'lighten', 60)})`,
-    '--primary-lightest': `hsl(${generateHsl(primaryColor, 'set', 98)})`,
-    '--primary-dark': `hsl(${generateHsl(primaryColor, 'set', 4)})`,
+    '--primary-light': `hsl(${generateHsl(primaryColor, 'set', 95)})`,
+    '--primary-dark': `hsl(${generateHsl(primaryColor, 'set', 10)})`,
     '--secondary': `hsl(${generateHsl(secondaryColor)})`,
     '--accent': `hsl(${generateHsl(accentColor)})`,
   }
