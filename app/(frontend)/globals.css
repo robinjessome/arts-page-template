@@ -1,5 +1,15 @@
 @import 'tailwindcss';
 
+@layer base {
+  a {
+    @apply transition-all;
+  }
+  /* a:hover,
+  a:focus {
+    @apply opacity-0;
+  } */
+}
+
 @theme {
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);

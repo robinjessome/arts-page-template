@@ -1,6 +1,6 @@
 import { defineQuery } from 'next-sanity'
 
-export const SITE_SETTINGS_QUERY = defineQuery(`*[_type == "siteSettings"]`)
+export const SITE_SETTINGS_QUERY = defineQuery(`*[_type == "siteSettings"][0]`)
 
 export const POST_QUERY = defineQuery(
   `*[_type == "post" && slug.current == $slug][0]{

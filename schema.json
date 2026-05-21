@@ -495,6 +495,47 @@
         },
         "optional": true
       },
+      "headerFooterColour": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "light"
+            },
+            {
+              "type": "string",
+              "value": "dark"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "primaryColor": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "color"
+        },
+        "optional": true
+      },
+      "secondaryColor": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "color"
+        },
+        "optional": true
+      },
+      "accentColor": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "color"
+        },
+        "optional": true
+      },
       "favicon": {
         "type": "objectAttribute",
         "value": {
@@ -542,27 +583,10 @@
         },
         "optional": true
       },
-      "primaryColor": {
+      "copyrightText": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "color"
-        },
-        "optional": true
-      },
-      "secondaryColor": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "color"
-        },
-        "optional": true
-      },
-      "accentColor": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "color"
+          "type": "string"
         },
         "optional": true
       }

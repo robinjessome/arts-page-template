@@ -90,6 +90,10 @@ export type SiteSettings = {
   shortDescription?: string
   longDescription?: string
   siteFont?: string
+  headerFooterColour?: 'light' | 'dark'
+  primaryColor?: Color
+  secondaryColor?: Color
+  accentColor?: Color
   favicon?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -97,9 +101,7 @@ export type SiteSettings = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  primaryColor?: Color
-  secondaryColor?: Color
-  accentColor?: Color
+  copyrightText?: string
 }
 
 export type Color = {
@@ -254,8 +256,8 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: SITE_SETTINGS_QUERY
-// Query: *[_type == "siteSettings"]
-export type SITE_SETTINGS_QUERY_RESULT = Array<{
+// Query: *[_type == "siteSettings"][0]
+export type SITE_SETTINGS_QUERY_RESULT = {
   _id: string
   _type: 'siteSettings'
   _createdAt: string
@@ -265,6 +267,10 @@ export type SITE_SETTINGS_QUERY_RESULT = Array<{
   shortDescription?: string
   longDescription?: string
   siteFont?: string
+  headerFooterColour?: 'dark' | 'light'
+  primaryColor?: Color
+  secondaryColor?: Color
+  accentColor?: Color
   favicon?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -272,10 +278,8 @@ export type SITE_SETTINGS_QUERY_RESULT = Array<{
     crop?: SanityImageCrop
     _type: 'image'
   }
-  primaryColor?: Color
-  secondaryColor?: Color
-  accentColor?: Color
-}>
+  copyrightText?: string
+} | null
 
 // Source: sanity/lib/queries.ts
 // Variable: POST_QUERY
@@ -307,7 +311,7 @@ export type POST_QUERY_RESULT = {
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "siteSettings"]': SITE_SETTINGS_QUERY_RESULT
+    '*[_type == "siteSettings"][0]': SITE_SETTINGS_QUERY_RESULT
     '*[_type == "post" && slug.current == $slug][0]{\n    title, body, mainImage\n  }': POST_QUERY_RESULT
   }
 }

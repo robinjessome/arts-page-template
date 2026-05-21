@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Header, Footer } from '@/components'
 import { generateHsl } from '@/sanity/lib/helpers'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import {
@@ -64,18 +65,14 @@ const FONTS_MAP = {
 } as const
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
+  const siteSettings = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
   const primaryColor = siteSettings?.primaryColor || DEFAULT_COLORS.primary
-
-  let faviconUrl = siteSettings?.favicon ? urlFor(siteSettings.favicon).url() : undefined
-
-  console.log('primaryColor', primaryColor)
 
   const colorHex = (primaryColor as { hex: string }).hex
 
+  let faviconUrl = siteSettings?.favicon ? urlFor(siteSettings.favicon).url() : undefined
   if (!faviconUrl) {
     const siteTitle = siteSettings?.title ?? 'Default'
-    // This creates /api/fallback-favicon?text=Default
     faviconUrl = `/api/fallback-favicon?text=${encodeURIComponent(siteTitle)}&color=${encodeURIComponent(colorHex)}`
   }
 
@@ -91,9 +88,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // Fetching the data again here is completely fine; Next.js automatically dedupes
-  // duplicate fetch calls so it won't hit Sanity twice.
-  const [siteSettings] = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
+  const siteSettings = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
 
   const chosenFontKey = siteSettings?.siteFont as keyof typeof FONTS_MAP
   const siteFont = FONTS_MAP[chosenFontKey] || openSans
@@ -114,16 +109,18 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${siteFont.className} text-primary-dark h-full antialiased`}
+      className={`${siteFont.className} h-full antialiased`}
       style={cssVars as React.CSSProperties}
     >
       <body className="flex min-h-full flex-col">
-        <header>Header!</header>
-        <hr className="my-12" />
-        {children}
-        <hr className="my-12" />
-        <footer>Footer!</footer>
-        <pre className="text-xs">{JSON.stringify(siteSettings, null, 2)}</pre>
+        <div className="p-4">
+          <Header siteSettings={siteSettings} />
+          <main className="">{children}</main>
+          <pre className="my-6 bg-slate-100 p-6 text-xs wrap-anywhere">
+            {JSON.stringify(siteSettings, null, 2)}
+          </pre>
+          <Footer siteSettings={siteSettings} />
+        </div>
       </body>
     </html>
   )
