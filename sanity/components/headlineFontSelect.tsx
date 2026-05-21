@@ -3,18 +3,12 @@ import { StringInputProps, set, unset } from 'sanity'
 import { Stack, Card, Text } from '@sanity/ui'
 
 const FONTS = [
-  { value: 'Inconsolata', label: 'Inconsolata (Monospace)', fallback: 'monospace' },
-  { value: 'Merriweather', label: 'Merriweather (Serif)', fallback: 'serif' },
-  { value: 'Noto Sans', label: 'Noto Sans (Sans-serif)', fallback: 'sans-serif' },
-  { value: 'Playfair Display', label: 'Playfair Display (Serif)', fallback: 'serif' },
-  { value: 'Quicksand', label: 'Quicksand (Sans-serif)', fallback: 'sans-serif' },
-  { value: 'Raleway', label: 'Raleway (Sans-serif)', fallback: 'sans-serif' },
-  { value: 'Roboto', label: 'Roboto (Sans-serif)', fallback: 'sans-serif' },
-  { value: 'Saira', label: 'Saira (Sans-serif)', fallback: 'sans-serif' },
-  { value: 'Stack Sans Text', label: 'Stack Sans Text (Sans-serif)', fallback: 'sans-serif' },
+  { value: 'Caveat', label: 'Caveat (handwritten)', fallback: 'sans-serif' },
+  { value: 'Doto', label: 'Doto (pixel)', fallback: 'sans-serif' },
+  { value: 'Stack Sans Notch', label: 'Stack Sans Notch (Sans-serif)', fallback: 'sans-serif' },
 ]
 
-export function FontSelectPreview(props: StringInputProps) {
+export function HeadlineFontSelectPreview(props: StringInputProps) {
   const { value = '', onChange } = props
 
   const handleSelect = (fontValue: string) => {
@@ -28,7 +22,7 @@ export function FontSelectPreview(props: StringInputProps) {
   return (
     <Stack>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&family=Merriweather:wght@400;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;700&family=Raleway:wght@300;400;700&family=Roboto:wght@300;700&family=Saira:wght@300;400;700&family=Stack+Sans+Text:wght@200..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&family=Caveat:wght@400..700&family=Doto:wght@100..900&display=swap');
       `}</style>
 
       {FONTS.map((font) => {
@@ -62,8 +56,7 @@ export function FontSelectPreview(props: StringInputProps) {
                   fontFamily: fontFamilyStyle,
                 }}
               >
-                <h3 style={{ fontSize: '24px', fontWeight: 700 }}>{font.label}</h3>
-                <p style={{ fontSize: '18px' }}>The quick brown fox jumps over the lazy dog.</p>
+                <h3 style={{ fontSize: '42px', fontWeight: 700 }}>{font.label}</h3>
               </div>
             </Stack>
           </Card>

@@ -103,8 +103,8 @@ export default async function SocialLinksList({ label, links }: SocialLinksProps
   if (!links) return null
 
   return (
-    <div className="flex items-center gap-2">
-      {label && <span className="text-sm font-semibold">{label}</span>}
+    <div className="flex items-center gap-4">
+      {label && <span className="text-sm">{label}</span>}
       <ul className="flex gap-2">
         {links.map((link) => {
           if (!link.platform) return null

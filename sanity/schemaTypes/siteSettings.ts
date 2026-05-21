@@ -1,7 +1,9 @@
 import { ALL_FIELDS_GROUP, defineField, defineType } from 'sanity'
 import { CharacterCount } from '@/sanity/components/charcterCount'
-import { FontSelectPreview } from '@/sanity/components/fontSelect'
 import { socialLinksSchema } from '@/sanity/schemaTypes/fields/socialLinks'
+import { ColorPreviewInput } from '@/sanity/schemaTypes/fields/colorPreview'
+import { FontSelectPreview } from '@/sanity/components/fontSelect'
+import { HeadlineFontSelectPreview } from '../components/headlineFontSelect'
 
 export default defineType({
   name: 'siteSettings',
@@ -15,6 +17,15 @@ export default defineType({
     { name: 'colors', title: 'Colours' },
     { name: 'images', title: 'Images' },
     { ...ALL_FIELDS_GROUP, hidden: true },
+  ],
+  fieldsets: [
+    {
+      name: 'colors',
+      title: 'Colors',
+      options: {
+        columns: 3,
+      },
+    },
   ],
   fields: [
     // SEO
@@ -49,21 +60,6 @@ export default defineType({
       type: 'image',
       group: 'general',
     }),
-    defineField({
-      title: 'Colour scheme: Light or Dark? ',
-      name: 'colorScheme',
-      // description: '',
-      type: 'string',
-      group: 'general',
-      initialValue: 'light',
-      options: {
-        list: [
-          { title: 'Light', value: 'light' },
-          { title: 'Dark', value: 'dark' },
-        ],
-        layout: 'radio',
-      },
-    }),
 
     // SOCIAL
 
@@ -75,7 +71,7 @@ export default defineType({
     }),
     socialLinksSchema,
 
-    // FONTS & COLOURS
+    // FONTS
     defineField({
       name: 'siteFont',
       title: 'Main Font',
@@ -91,28 +87,16 @@ export default defineType({
       type: 'string',
       group: 'fonts',
       components: {
-        input: FontSelectPreview,
+        input: HeadlineFontSelectPreview,
       },
     }),
-    defineField({
-      title: 'Header/Footer colour',
-      name: 'headerFooterColour',
-      description: 'Use this to set the font colour for header / footer text',
-      type: 'string',
-      group: 'colors',
-      initialValue: 'light',
-      options: {
-        list: [
-          { title: 'Light', value: 'light' },
-          { title: 'Dark', value: 'dark' },
-        ],
-        layout: 'radio', // <-- defaults to 'dropdown'
-      },
-    }),
+    // COLOURS
     defineField({
       name: 'primaryColor',
       title: 'Primary color',
       type: 'color',
+      fieldset: 'colors',
+
       options: {
         disableAlpha: true,
       },
@@ -122,6 +106,8 @@ export default defineType({
       name: 'secondaryColor',
       title: 'Secondary color',
       type: 'color',
+      fieldset: 'colors',
+
       options: {
         disableAlpha: true,
       },
@@ -131,10 +117,36 @@ export default defineType({
       name: 'accentColor',
       title: 'Accent color',
       type: 'color',
+      fieldset: 'colors',
+
       options: {
         disableAlpha: true,
       },
       group: 'colors',
+    }),
+    defineField({
+      name: 'palettePreview',
+      title: 'Live Palette Preview',
+      type: 'string',
+      group: 'colors',
+      components: {
+        input: ColorPreviewInput,
+      },
+    }),
+    defineField({
+      title: 'Colour scheme: Light or Dark? ',
+      name: 'colorScheme',
+      description: 'Set the general colour scheme for the site.',
+      type: 'string',
+      group: 'colors',
+      initialValue: 'light',
+      options: {
+        list: [
+          { title: 'Light', value: 'light' },
+          { title: 'Dark', value: 'dark' },
+        ],
+        layout: 'radio',
+      },
     }),
 
     // HEADER

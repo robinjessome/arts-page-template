@@ -12,7 +12,7 @@ export default async function Footer({
   const { copyrightText, socialLinksLabel, socialLinks = [] } = siteSettings
 
   return (
-    <footer className="border-primary/15 border-t py-4">
+    <footer className="border-primary/15 border-t py-2">
       <div className="flex justify-between text-sm">
         <div>
           <p>

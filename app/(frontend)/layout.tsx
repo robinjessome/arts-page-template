@@ -4,14 +4,18 @@ import { Header, Footer } from '@/components'
 import { generateHsl } from '@/lib/helpers'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import {
+  Caveat,
+  Doto,
   Inconsolata,
   Merriweather,
-  Open_Sans,
+  Noto_Sans,
   Playfair_Display,
   Quicksand,
   Raleway,
   Roboto,
   Saira,
+  Stack_Sans_Text,
+  Stack_Sans_Notch,
 } from 'next/font/google'
 
 import './globals.css'
@@ -32,7 +36,7 @@ export const merriweather = Merriweather({
   variable: '--font-headline',
 })
 
-export const openSans = Open_Sans({
+export const notoSans = Noto_Sans({
   subsets: ['latin'],
   variable: '--font-headline',
 })
@@ -62,15 +66,44 @@ export const saira = Saira({
   variable: '--font-headline',
 })
 
+export const stackSansText = Stack_Sans_Text({
+  subsets: ['latin'],
+  variable: '--font-headline',
+})
+
+// Headline
+
+export const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-headline',
+})
+
+export const doto = Doto({
+  subsets: ['latin'],
+  variable: '--font-headline',
+})
+
+export const stackSansNotch = Stack_Sans_Notch({
+  subsets: ['latin'],
+  variable: '--font-headline',
+})
+
 const FONTS_MAP = {
-  inconsolata: inconsolata,
-  merriweather: merriweather,
-  openSans: openSans,
-  playfairDisplay: playfairDisplay,
-  quicksand: quicksand,
-  raleway: raleway,
-  roboto: roboto,
-  saira: saira,
+  Inconsolata: inconsolata,
+  Merriweather: merriweather,
+  'Noto Sans': notoSans,
+  'Playfair Display': playfairDisplay,
+  Quicksand: quicksand,
+  Raleway: raleway,
+  Roboto: roboto,
+  Saira: saira,
+  'Stack Sans Text': stackSansText,
+} as const
+
+const HEADLINE_FONTS_MAP = {
+  Caveat: caveat,
+  Doto: doto,
+  'Stack Sans Notch': stackSansNotch,
 } as const
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -103,9 +136,9 @@ export default async function RootLayout({
   const { colorScheme } = siteSettings || {}
 
   const chosenFontKey = siteSettings?.siteFont as keyof typeof FONTS_MAP
-  const chosenHeadlineFontKey = siteSettings?.headlineFont as keyof typeof FONTS_MAP
-  const siteFont = FONTS_MAP[chosenFontKey] || openSans
-  const headlineFont = FONTS_MAP[chosenHeadlineFontKey] || openSans
+  const chosenHeadlineFontKey = siteSettings?.headlineFont as keyof typeof HEADLINE_FONTS_MAP
+  const siteFont = FONTS_MAP[chosenFontKey] || notoSans
+  const headlineFont = HEADLINE_FONTS_MAP[chosenHeadlineFontKey] || siteFont || notoSans
 
   const primaryColor = siteSettings?.primaryColor || DEFAULT_COLORS.primary
   const secondaryColor = siteSettings?.secondaryColor || DEFAULT_COLORS.secondary
@@ -123,22 +156,17 @@ export default async function RootLayout({
     <html
       lang="en"
       className={cn(
-        `${siteFont.className} ${headlineFont.variable} dark h-full antialiased`,
-        colorScheme === 'dark' && 'dark',
-        'dark:bg-primary-dark bg-primary-light border'
+        `${siteFont.className} ${headlineFont.variable} h-full antialiased`,
+        colorScheme === 'dark' && 'dark'
+        // 'dark:bg-primary-dark bg-primary-light border'
 
         //   ? 'text-primary-light bg-primary-dark'
         //   : 'text-primary-dark bg-primary-light'
       )}
       style={cssVars as React.CSSProperties}
     >
-      <body className={cn('min-h-screen w-full', 'text-primary-dark dark:text-primary-light')}>
-        <div
-          className={cn(
-            'p-8',
-            'bg-primary-light dark:from-primary-dark dark:to-primary dark:bg-linear-to-b'
-          )}
-        >
+      <body className={cn('min-h-screen w-full font-light')}>
+        <div className={cn('p-8')}>
           <Header siteSettings={siteSettings} />
           <main className="">{children}</main>
           <pre className="bg-slate-100 p-6 text-xs wrap-anywhere text-slate-900">
