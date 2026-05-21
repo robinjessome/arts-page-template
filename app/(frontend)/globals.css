@@ -16,4 +16,5 @@
   --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --font-headline: var(--font-headline), sans;
 }

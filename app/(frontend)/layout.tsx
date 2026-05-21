@@ -4,7 +4,6 @@ import { generateHsl } from '@/sanity/lib/helpers'
 import { DEFAULT_COLORS } from '@/lib/constants'
 import {
   Inconsolata,
-  // Josefin_Sans,
   Merriweather,
   Open_Sans,
   Playfair_Display,
@@ -24,43 +23,46 @@ const FETCH_OPTIONS = { next: { revalidate: 30 } }
 
 export const inconsolata = Inconsolata({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
-
-// export const josefinSans = Josefin_Sans({
-//   subsets: ['latin'],
-// })
 
 export const merriweather = Merriweather({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const openSans = Open_Sans({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const quicksand = Quicksand({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const raleway = Raleway({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const roboto = Roboto({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 export const saira = Saira({
   subsets: ['latin'],
+  variable: '--font-headline',
 })
 
 const FONTS_MAP = {
   inconsolata: inconsolata,
-  // josefinSans: josefinSans,
   merriweather: merriweather,
   openSans: openSans,
   playfairDisplay: playfairDisplay,
@@ -97,7 +99,9 @@ export default async function RootLayout({
   const siteSettings = await client.fetch(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS)
 
   const chosenFontKey = siteSettings?.siteFont as keyof typeof FONTS_MAP
+  const chosenHeadlineFontKey = siteSettings?.headlineFont as keyof typeof FONTS_MAP
   const siteFont = FONTS_MAP[chosenFontKey] || openSans
+  const headlineFont = FONTS_MAP[chosenHeadlineFontKey] || openSans
 
   const primaryColor = siteSettings?.primaryColor || DEFAULT_COLORS.primary
   const secondaryColor = siteSettings?.secondaryColor || DEFAULT_COLORS.secondary
@@ -114,7 +118,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${siteFont.className} h-full antialiased`}
+      className={`${siteFont.className} ${headlineFont.variable} h-full antialiased`}
       style={cssVars as React.CSSProperties}
     >
       <body className="flex min-h-full flex-col">

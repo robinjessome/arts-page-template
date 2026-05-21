@@ -1,4 +1,4 @@
-import { ALL_FIELDS_GROUP, defineField, defineArrayMember, defineType } from 'sanity'
+import { ALL_FIELDS_GROUP, defineField, defineType } from 'sanity'
 import { CharacterCount } from '@/sanity/components/charcterCount'
 import { FontSelectPreview } from '@/sanity/components/fontSelect'
 
@@ -10,7 +10,8 @@ export default defineType({
     { name: 'seo', title: 'SEO' },
     { name: 'social', title: 'Social Media' },
     { name: 'streaming', title: 'Streaming Platforms' },
-    { name: 'fontColour', title: 'Fonts & Colours' },
+    { name: 'fonts', title: 'Fonts' },
+    { name: 'colors', title: 'Colours' },
     { name: 'images', title: 'Images' },
     { name: 'headerFooter', title: 'Header & Footer' },
     { ...ALL_FIELDS_GROUP, hidden: true },
@@ -155,9 +156,18 @@ export default defineType({
     // FONTS & COLOURS
     defineField({
       name: 'siteFont',
-      title: 'Select Font',
+      title: 'Main Font',
       type: 'string',
-      group: 'fontColour',
+      group: 'fonts',
+      components: {
+        input: FontSelectPreview,
+      },
+    }),
+    defineField({
+      name: 'headlineFont',
+      title: 'Headline Font',
+      type: 'string',
+      group: 'fonts',
       components: {
         input: FontSelectPreview,
       },
@@ -167,7 +177,7 @@ export default defineType({
       name: 'headerFooterColour',
       description: 'Use this to set the font colour for header / footer text',
       type: 'string',
-      group: 'fontColour',
+      group: 'colors',
       initialValue: 'light',
       options: {
         list: [
@@ -184,7 +194,7 @@ export default defineType({
       options: {
         disableAlpha: true,
       },
-      group: 'fontColour',
+      group: 'colors',
     }),
     defineField({
       name: 'secondaryColor',
@@ -193,7 +203,7 @@ export default defineType({
       options: {
         disableAlpha: true,
       },
-      group: 'fontColour',
+      group: 'colors',
     }),
     defineField({
       name: 'accentColor',
@@ -202,7 +212,7 @@ export default defineType({
       options: {
         disableAlpha: true,
       },
-      group: 'fontColour',
+      group: 'colors',
     }),
     // IMAGE
     defineField({

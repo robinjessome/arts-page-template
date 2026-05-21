@@ -2,7 +2,8 @@ export default async function Page() {
   return (
     <>
       <p>Content...</p>
-      <div className="grid grid-cols-5 *:h-32 *:w-full">
+      {/* <h2 className="font-headline text-3xl">Headline!</h2> */}
+      <div className="my-4 grid grid-cols-5 *:h-32 *:w-full">
         <div className="bg-primary row-span-2 h-full!" />
         <div className="from-primary to-secondary row-span-2 h-full! bg-linear-to-b" />
         <div className="from-primary to-accent row-span-2 h-full! bg-linear-to-t" />

@@ -10,7 +10,7 @@ export default async function Header({
 
   const { title, shortDescription } = siteSettings
   return (
-    <header className="mb-2">
+    <header className="border-primary/15 mb-4 border-b pb-4">
       <div className="flex items-end justify-between">
         <div className="flex items-end gap-4">
           <Link href="/" className="hover:text-primary focus-visible::outline-1">

@@ -89,7 +89,36 @@ export type SiteSettings = {
   title?: string
   shortDescription?: string
   longDescription?: string
+  socialMedia?: {
+    youtube?: {
+      handle?: string
+      url?: string
+    }
+    twitter?: {
+      handle?: string
+      url?: string
+    }
+    instagram?: {
+      handle?: string
+      url?: string
+    }
+    facebook?: {
+      handle?: string
+      url?: string
+    }
+  }
+  streaming?: {
+    bandcamp?: {
+      handle?: string
+      url?: string
+    }
+    spotify?: {
+      handle?: string
+      url?: string
+    }
+  }
   siteFont?: string
+  headlineFont?: string
   headerFooterColour?: 'light' | 'dark'
   primaryColor?: Color
   secondaryColor?: Color
@@ -266,7 +295,36 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   title?: string
   shortDescription?: string
   longDescription?: string
+  socialMedia?: {
+    youtube?: {
+      handle?: string
+      url?: string
+    }
+    twitter?: {
+      handle?: string
+      url?: string
+    }
+    instagram?: {
+      handle?: string
+      url?: string
+    }
+    facebook?: {
+      handle?: string
+      url?: string
+    }
+  }
+  streaming?: {
+    bandcamp?: {
+      handle?: string
+      url?: string
+    }
+    spotify?: {
+      handle?: string
+      url?: string
+    }
+  }
   siteFont?: string
+  headlineFont?: string
   headerFooterColour?: 'dark' | 'light'
   primaryColor?: Color
   secondaryColor?: Color
