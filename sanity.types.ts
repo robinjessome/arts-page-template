@@ -98,6 +98,7 @@ export type HomePage = {
   _rev: string
   heroStyle?: 'gradientPrimary' | 'gradientAccent' | 'imageHalf' | 'imageFull'
   heroHeight?: 'short' | 'md' | 'tall'
+  heroColor?: 'light' | 'dark'
   heroImage?: {
     asset?: SanityImageAssetReference
     media?: unknown

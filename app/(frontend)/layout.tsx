@@ -150,7 +150,7 @@ export default async function RootLayout({
   const cssVars = {
     '--primary': `hsl(${generateHsl(primaryColor)})`,
     '--primary-light': `hsl(${generateHsl(primaryColor, 'set', 95)})`,
-    '--primary-dark': `hsl(${generateHsl(primaryColor, 'set', 10)})`,
+    '--primary-dark': `hsl(${generateHsl(primaryColor, 'set', 6)})`,
     '--secondary': `hsl(${generateHsl(secondaryColor)})`,
     '--accent': `hsl(${generateHsl(accentColor)})`,
     '--radius': CUSTOM_RADIUS[customRadius],

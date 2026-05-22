@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-
+import type { SanityImageObject } from '@sanity/image-url'
 import HeroBannerGradient from './heroGradient'
 import HeroBannerImageFull from './heroImageFull'
 import HeroBannerImageHalf from './heroImageHalf'
@@ -9,37 +9,30 @@ export interface TemplateProps {
   height?: 'tall' | 'short' | 'md'
   title?: string
   description?: string
+  color?: string
+  image?: SanityImageObject
 }
-export default function HeroBanner({
-  title,
-  description,
-  layout = 'gradientPrimary',
-  height = 'md',
-}: TemplateProps) {
+
+export default function HeroBanner(props: TemplateProps) {
+  const layout = props.layout ?? 'gradientPrimary'
+  const height = props.height ?? 'md'
+
+  const fullProps = { ...props, layout, height }
+
   const renderBanner = () => {
     switch (layout) {
       case 'gradientPrimary':
       case 'gradientAccent':
-        // Passing the layout along in case the gradient component
-        // needs to differentiate between primary and accent colors
-        return (
-          <HeroBannerGradient
-            layout={layout}
-            height={height}
-            title={title}
-            description={height !== 'short' ? description : ''}
-          />
-        )
+        return <HeroBannerGradient {...fullProps} layout={layout} />
 
       case 'imageFull':
-        return <HeroBannerImageFull height={height} />
+        return <HeroBannerImageFull {...fullProps} layout={layout} />
 
       case 'imageHalf':
-        return <HeroBannerImageHalf height={height} />
+        return <HeroBannerImageHalf {...fullProps} layout={layout} />
 
       default:
-        // Fallback in case an unexpected value slips through
-        return <HeroBannerGradient layout="gradientPrimary" height={height} />
+        return <HeroBannerGradient {...fullProps} layout="gradientPrimary" />
     }
   }
 

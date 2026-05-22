@@ -12,11 +12,18 @@ const options = { next: { revalidate: REVALIDATE } }
 export default async function HomePage({ params }: { params: Promise<{ slug: string }> }) {
   const page = await client.fetch<SanityDocument>(HOME_QUERY, await params, options)
 
-  const { heroStyle, heroHeight, title, description } = page
+  const { heroStyle, heroHeight, heroColor, heroImage, title, description } = page
 
   return (
     <>
-      <HeroBanner layout={heroStyle} title={title} description={description} height={heroHeight} />
+      <HeroBanner
+        layout={heroStyle}
+        title={title}
+        description={description}
+        height={heroHeight}
+        color={heroColor}
+        image={heroImage}
+      />
     </>
   )
 }

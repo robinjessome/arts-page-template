@@ -46,6 +46,21 @@ export default defineType({
       },
     }),
     defineField({
+      title: 'Hero text colour',
+      name: 'heroColor',
+      // description: 'Set the text',
+      type: 'string',
+      group: 'hero',
+      initialValue: 'light',
+      options: {
+        list: [
+          { title: 'Light', value: 'light' },
+          { title: 'Dark', value: 'dark' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       title: 'Hero Image',
       name: 'heroImage',
       type: 'image',
