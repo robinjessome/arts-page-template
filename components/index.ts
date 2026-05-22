@@ -4,4 +4,5 @@ export { default as Footer } from './layout/footer'
 export { default as HeaderLogo } from './layout/headerLogo'
 
 //
+export { default as AudioPlayer } from './audioPlayer'
 export { default as SocialLinks } from './socialLinks'

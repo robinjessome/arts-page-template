@@ -1,3 +1,5 @@
+export const REVALIDATE = 30 //3600
+
 export const DEFAULT_COLORS = {
   primary: {
     _type: 'color',

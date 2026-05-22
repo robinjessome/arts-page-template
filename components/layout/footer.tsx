@@ -1,18 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 import { SITE_SETTINGS_QUERY_RESULT } from '@/sanity.types'
-
-import { SocialLinks } from '@/components'
-export default async function Footer({
-  siteSettings,
-}: {
-  siteSettings: SITE_SETTINGS_QUERY_RESULT
-}) {
+import { SocialLinks, AudioPlayer } from '@/components'
+export default function Footer({ siteSettings }: { siteSettings: SITE_SETTINGS_QUERY_RESULT }) {
   if (!siteSettings) return null
 
   const { copyrightText, socialLinksLabel, socialLinks = [] } = siteSettings
 
   return (
-    <footer className="border-primary/15 border-t py-2">
+    <footer className="border-primary/15 border-t">
       <div className="flex justify-between text-sm">
         <div>
           <p>
@@ -26,6 +23,8 @@ export default async function Footer({
         </div>
         <SocialLinks label={socialLinksLabel} links={socialLinks} />
       </div>
+      <hr className="my-12" />
+      <AudioPlayer />
     </footer>
   )
 }

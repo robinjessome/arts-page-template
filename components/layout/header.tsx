@@ -28,7 +28,7 @@ export default async function Header({
   const headerVerticalAlignmentClass = verticalAlignment[headerVerticalAlignment]
 
   return (
-    <header className="border-primary/15 mb-4 border-b pb-4">
+    <header className="border-primary/15 border-b">
       <div className={cn('flex justify-between', headerVerticalAlignmentClass)}>
         <div className={cn('flex gap-4', headerVerticalAlignmentClass)}>
           <HeaderLogo title={title} logo={logoUrl} tagline={showTagline ? tagline : ''} />

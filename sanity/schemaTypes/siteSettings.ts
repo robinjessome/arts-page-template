@@ -16,6 +16,7 @@ export default defineType({
     { name: 'fonts', title: 'Fonts' },
     { name: 'colors', title: 'Colours' },
     { name: 'images', title: 'Images' },
+    { name: 'menus', title: 'Menus' },
     { ...ALL_FIELDS_GROUP, hidden: true },
   ],
   fieldsets: [
@@ -188,6 +189,20 @@ export default defineType({
       title: 'Copyright Text',
       type: 'string',
       group: 'headerFooter',
+    }),
+
+    // MENU
+    defineField({
+      title: 'Main Menu',
+      name: 'mainMenu',
+      type: 'array',
+      group: 'menus',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'page' }],
+        },
+      ],
     }),
   ],
 })

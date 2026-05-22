@@ -99,7 +99,7 @@ export interface SocialLinksProps {
   links: SocialLinkItem[]
 }
 
-export default async function SocialLinksList({ label, links }: SocialLinksProps) {
+export default function SocialLinksList({ label, links }: SocialLinksProps) {
   if (!links) return null
 
   return (

@@ -80,6 +80,16 @@ export type Slug = {
   source?: string
 }
 
+export type Page = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  slug?: Slug
+}
+
 export type HomePage = {
   _id: string
   _type: 'homePage'
@@ -87,6 +97,13 @@ export type HomePage = {
   _updatedAt: string
   _rev: string
   title?: string
+}
+
+export type PageReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'page'
 }
 
 export type SiteSettings = {
@@ -105,7 +122,6 @@ export type SiteSettings = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  colorScheme?: 'light' | 'dark'
   socialLinksLabel?: string
   socialLinks?: Array<{
     platform?:
@@ -128,10 +144,11 @@ export type SiteSettings = {
   }>
   siteFont?: string
   headlineFont?: string
-  headerFooterColour?: 'light' | 'dark'
   primaryColor?: Color
   secondaryColor?: Color
   accentColor?: Color
+  palettePreview?: string
+  colorScheme?: 'light' | 'dark'
   showTagline?: boolean
   headerVerticalAlignment?: 'top' | 'middle' | 'bottom'
   logo?: {
@@ -142,6 +159,11 @@ export type SiteSettings = {
     _type: 'image'
   }
   copyrightText?: string
+  mainMenu?: Array<
+    {
+      _key: string
+    } & PageReference
+  >
 }
 
 export type Color = {
@@ -280,7 +302,9 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | Page
   | HomePage
+  | PageReference
   | SiteSettings
   | Color
   | RgbaColor
@@ -314,7 +338,6 @@ export type SITE_SETTINGS_QUERY_RESULT = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  colorScheme?: 'dark' | 'light'
   socialLinksLabel?: string
   socialLinks?: Array<{
     platform?:
@@ -337,10 +360,11 @@ export type SITE_SETTINGS_QUERY_RESULT = {
   }>
   siteFont?: string
   headlineFont?: string
-  headerFooterColour?: 'dark' | 'light'
   primaryColor?: Color
   secondaryColor?: Color
   accentColor?: Color
+  palettePreview?: string
+  colorScheme?: 'dark' | 'light'
   showTagline?: boolean
   headerVerticalAlignment?: 'bottom' | 'middle' | 'top'
   logo?: {
@@ -351,6 +375,11 @@ export type SITE_SETTINGS_QUERY_RESULT = {
     _type: 'image'
   }
   copyrightText?: string
+  mainMenu?: Array<
+    {
+      _key: string
+    } & PageReference
+  >
 } | null
 
 // Source: sanity/lib/queries.ts

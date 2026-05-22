@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { cn } from '@/lib/helpers'
 import { Header, Footer } from '@/components'
+import { AudioProvider } from '@/context/AudioContext'
+
 import { generateHsl } from '@/lib/helpers'
-import { DEFAULT_COLORS } from '@/lib/constants'
+import { DEFAULT_COLORS, REVALIDATE } from '@/lib/constants'
 import {
   Caveat,
   Doto,
@@ -24,7 +26,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries'
 
-const FETCH_OPTIONS = { next: { revalidate: 30 } }
+const FETCH_OPTIONS = { next: { revalidate: REVALIDATE } }
 
 export const inconsolata = Inconsolata({
   subsets: ['latin'],
@@ -158,50 +160,18 @@ export default async function RootLayout({
       className={cn(
         `${siteFont.className} ${headlineFont.variable} h-full antialiased`,
         colorScheme === 'dark' && 'dark'
-        // 'dark:bg-primary-dark bg-primary-light border'
-
-        //   ? 'text-primary-light bg-primary-dark'
-        //   : 'text-primary-dark bg-primary-light'
       )}
       style={cssVars as React.CSSProperties}
     >
       <body className={cn('min-h-screen w-full font-light')}>
-        <div className={cn('p-8')}>
-          <Header siteSettings={siteSettings} />
-          <main className="">{children}</main>
-          <pre className="bg-slate-100 p-6 text-xs wrap-anywhere text-slate-900">
-            {JSON.stringify(siteSettings, null, 2)}
-          </pre>
-          <Footer siteSettings={siteSettings} />
+        <div className={cn('mx-auto max-w-7xl px-8 py-4')}>
+          <AudioProvider>
+            <Header siteSettings={siteSettings} />
+            <main>{children}</main>
+            <Footer siteSettings={siteSettings} />
+          </AudioProvider>
         </div>
       </body>
     </html>
-
-    // <html
-    //   lang="en"
-    //   className={cn(`${siteFont.className} ${headlineFont.variable} dark h-full antialiased`)}
-    //   style={cssVars as React.CSSProperties}
-    // >
-    //   <body
-    //     className={cn(
-    //       'flex min-h-screen flex-col bg-fixed antialiased p-8',
-    //       'bg-primary-light dark:from-primary-dark dark:to-primary dark:bg-linear-to-b'
-    //     )}
-    //   >
-    //     <header className="border-b border-white/10 p-6">
-    //       <div className="mx-auto max-w-7xl">
-    //         <h1 className="text-xl font-bold tracking-tight">MyApp</h1>
-    //       </div>
-    //     </header>
-
-    //     <main className="mx-auto w-full max-w-7xl flex-1 bg-slate-200 p-6">
-    //       <div className="h-[2000px] bg-red-200 text-slate-900">MAIN!</div>
-    //     </main>
-
-    //     <footer className="border-t border-white/10 p-6 text-center text-sm text-slate-500">
-    //       © {new Date().getFullYear()} MyApp. All rights reserved.
-    //     </footer>
-    //   </body>
-    // </html>
   )
 }
