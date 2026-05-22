@@ -519,7 +519,107 @@
           "type": "string"
         }
       },
+      "heroStyle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "gradientPrimary"
+            },
+            {
+              "type": "string",
+              "value": "gradientAccent"
+            },
+            {
+              "type": "string",
+              "value": "imageHalf"
+            },
+            {
+              "type": "string",
+              "value": "imageFull"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "heroHeight": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "short"
+            },
+            {
+              "type": "string",
+              "value": "md"
+            },
+            {
+              "type": "string",
+              "value": "tall"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "heroImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageAsset.reference"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": true
+      },
       "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -658,6 +758,31 @@
               }
             }
           }
+        },
+        "optional": true
+      },
+      "customRadius": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "none"
+            },
+            {
+              "type": "string",
+              "value": "sm"
+            },
+            {
+              "type": "string",
+              "value": "md"
+            },
+            {
+              "type": "string",
+              "value": "lg"
+            }
+          ]
         },
         "optional": true
       },

@@ -4,7 +4,7 @@ import { Header, Footer } from '@/components'
 import { AudioProvider } from '@/context/AudioContext'
 
 import { generateHsl } from '@/lib/helpers'
-import { DEFAULT_COLORS, REVALIDATE } from '@/lib/constants'
+import { DEFAULT_COLORS, CUSTOM_RADIUS, REVALIDATE } from '@/lib/constants'
 import {
   Caveat,
   Doto,
@@ -145,6 +145,7 @@ export default async function RootLayout({
   const primaryColor = siteSettings?.primaryColor || DEFAULT_COLORS.primary
   const secondaryColor = siteSettings?.secondaryColor || DEFAULT_COLORS.secondary
   const accentColor = siteSettings?.accentColor || DEFAULT_COLORS.accent
+  const customRadius = siteSettings?.customRadius || 'none'
 
   const cssVars = {
     '--primary': `hsl(${generateHsl(primaryColor)})`,
@@ -152,6 +153,7 @@ export default async function RootLayout({
     '--primary-dark': `hsl(${generateHsl(primaryColor, 'set', 10)})`,
     '--secondary': `hsl(${generateHsl(secondaryColor)})`,
     '--accent': `hsl(${generateHsl(accentColor)})`,
+    '--radius': CUSTOM_RADIUS[customRadius],
   }
 
   return (

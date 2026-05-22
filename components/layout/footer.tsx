@@ -9,7 +9,7 @@ export default function Footer({ siteSettings }: { siteSettings: SITE_SETTINGS_Q
   const { copyrightText, socialLinksLabel, socialLinks = [] } = siteSettings
 
   return (
-    <footer className="border-primary/15 border-t">
+    <footer className="border-primary/15 pt-4">
       <div className="flex justify-between text-sm">
         <div>
           <p>

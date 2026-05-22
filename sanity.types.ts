@@ -96,7 +96,17 @@ export type HomePage = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  heroStyle?: 'gradientPrimary' | 'gradientAccent' | 'imageHalf' | 'imageFull'
+  heroHeight?: 'short' | 'md' | 'tall'
+  heroImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   title?: string
+  description?: string
 }
 
 export type PageReference = {
@@ -122,6 +132,7 @@ export type SiteSettings = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  customRadius?: 'none' | 'sm' | 'md' | 'lg'
   socialLinksLabel?: string
   socialLinks?: Array<{
     platform?:
@@ -338,6 +349,7 @@ export type SITE_SETTINGS_QUERY_RESULT = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  customRadius?: 'lg' | 'md' | 'none' | 'sm'
   socialLinksLabel?: string
   socialLinks?: Array<{
     platform?:

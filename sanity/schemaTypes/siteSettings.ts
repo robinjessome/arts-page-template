@@ -62,6 +62,24 @@ export default defineType({
       group: 'general',
     }),
 
+    defineField({
+      name: 'customRadius',
+      title: 'Rounded Corners?',
+      description: 'Set the level of "rounded-ness" you would like!',
+      type: 'string',
+      group: 'general',
+      initialValue: 'none',
+      options: {
+        list: [
+          { title: 'None', value: 'none' },
+          { title: 'Low (8px)', value: 'sm' },
+          { title: 'Medium (16px)', value: 'md' },
+          { title: 'High (32px)', value: 'lg' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
     // SOCIAL
 
     defineField({
